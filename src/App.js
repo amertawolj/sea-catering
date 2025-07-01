@@ -15,6 +15,7 @@ function App() {
       <KeyFeatures />
       <About />
       <Testimoni />
+      <LastHome />
       <Footer />
     </div>
   );
