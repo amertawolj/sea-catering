@@ -1,24 +1,20 @@
-import React from 'react'
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import KeyFeatures from './components/KeyFeatures';
-import About from './components/About';
-import Testimoni from './components/Testimoni';
-import LastHome from './components/LastHome';
-import Footer from './components/Footer';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import Menu from './pages/menu';
+import Subscription from './pages/subscription';
 import SignIn from './components/SignIn';
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Hero />
-      <KeyFeatures />
-      <About />
-      <Testimoni />
-      <LastHome />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<home />} />
+        <Route path="/menu" element={<menu />} />
+        <Route path="/subscription" element={<subscription />} />
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
+    </Router>
   );
 }
 
