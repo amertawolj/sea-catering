@@ -1,4 +1,3 @@
-// pages/MenuPage.jsx
 import React, { useState, useEffect } from 'react';
 import DietPlan from '../components/DietPlan';
 import ProteinPlan from '../components/ProteinPlan';
