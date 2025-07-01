@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import BGLast from '../assets/images/BGLast.png';
 
 const LastHome = () => {
@@ -22,9 +23,13 @@ const LastHome = () => {
             <p className="text-lg mb-8 leading-relaxed" style={{color: '#8A8A8A'}}>
               From fully customizable meal plans to ready-to-eat options and flexible deliveries in just several clicks, SEA Catering brings nutritious meals to your doorstep — simple, personalized, and always satisfying.
             </p>
-            <button className="text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity" style={{backgroundColor: '#41521F'}}>
+            <Link
+              to="/menu"
+              className="inline-block text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: '#41521F' }}
+            >
               See Menu
-            </button>
+            </Link>
           </div>
         </div>
       </div>

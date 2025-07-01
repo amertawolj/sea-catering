@@ -8,41 +8,35 @@ import SignIn from '../components/SignIn';
 import SignUp from '../components/SignUp';
 import supabase from '../helper/supabaseClient';
 
-const testimonials = [
-  {
-    name: "Andi",
-    location: "Office Worker, Jakarta",
-    text: "SEA Catering helps me stay on track with my diet even during hectic workdays. The meals are tasty, filling, and arrive right on time!"
-  },
-  {
-    name: "Andi",
-    location: "Office Worker, Jakarta",
-    text: "SEA Catering helps me stay on track with my diet even during hectic workdays. The meals are tasty, filling, and arrive right on time!"
-  },
-  {
-    name: "Andi",
-    location: "Office Worker, Jakarta",
-    text: "SEA Catering helps me stay on track with my diet even during hectic workdays. The meals are tasty, filling, and arrive right on time!"
-  },
-  {
-    name: "Andi",
-    location: "Office Worker, Jakarta",
-    text: "SEA Catering helps me stay on track with my diet even during hectic workdays. The meals are tasty, filling, and arrive right on time!"
-  }
-];
-
 const Testimoni = () => {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState(null);
+const [testimonials, setTestimonials] = useState([]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      setUser(data?.user || null);
-    };
-    fetchUser();
-  }, []);
+useEffect(() => {
+  const fetchUser = async () => {
+    const { data } = await supabase.auth.getUser();
+    setUser(data?.user || null);
+  };
+
+  const fetchTestimonials = async () => {
+    const { data, error } = await supabase
+      .from('user_testimoni')
+      .select('*')
+
+    if (error) {
+      console.error('Failed to fetch testimonials:', error.message);
+    } else {
+      setTestimonials(data);
+      console.log("Fetched testimonials:", data);
+    }
+  };
+
+  fetchUser();
+  fetchTestimonials();
+}, []);
+
 
   const handleAddTestimoni = () => {
     if (!user) {
@@ -70,23 +64,29 @@ const Testimoni = () => {
             Let's See What Our<br />Customers Say
           </h2>
 
-          <Swiper
-            modules={[Pagination]}
-            pagination={{ clickable: true }}
-            spaceBetween={16}
-            breakpoints={{
-              320: { slidesPerView: 1.2 },
-              768: { slidesPerView: 2.5 },
-              1024: { slidesPerView: 3.5 },
-              1280: { slidesPerView: 4 },
-            }}
-          >
-            {testimonials.map((t, i) => (
-              <SwiperSlide key={i} className="flex justify-center">
-                <TestimoniCard {...t} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <Swiper
+        modules={[Pagination]}
+        pagination={{ clickable: true }}
+        spaceBetween={16}
+        breakpoints={{
+            320: { slidesPerView: 1.2 },
+            768: { slidesPerView: 2.5 },
+            1024: { slidesPerView: 3.5 },
+            1280: { slidesPerView: 4 },
+        }}
+        >
+        {testimonials.map((t, i) => (
+            <SwiperSlide key={i} className="flex justify-center">
+            <TestimoniCard
+                name={t.user}
+                location={`${t.job}, ${t.place}`}
+                text={t.user_message}
+                rating={t.user_rating}
+            />
+            </SwiperSlide>
+        ))}
+        </Swiper>
+
 
           <div className="text-center mt-12">
             <button
