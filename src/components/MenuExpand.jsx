@@ -85,21 +85,6 @@ const MenuExpand = ({ item, onClose, onAddToCart, onAddToFavorites }) => {
               </div>
             </div>
           </div>
-          
-          <div className="mt-6 flex gap-3">
-            <button 
-              onClick={() => onAddToCart(item)}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-200"
-            >
-              Add to Cart
-            </button>
-            <button 
-              onClick={() => onAddToFavorites(item)}
-              className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-medium transition-colors duration-200"
-            >
-              Add to Favorites
-            </button>
-          </div>
         </div>
       </div>
     </div>

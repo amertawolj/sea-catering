@@ -2,7 +2,7 @@ import React from 'react';
 import MenuSmall from './MenuSmall';
 
 const RoyalPlan = ({ items, onCardClick }) => {
-  const royalPlanItems = items.filter(item => item.category === 'Royal Plan');
+  const royalPlanItems = items.filter(item => item.category === 'royal');
 
   return ( 
     <div className="mb-8">

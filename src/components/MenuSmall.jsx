@@ -15,11 +15,11 @@ const MenuSmall = ({ item, onCardClick }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
       <div className="relative">
         <img 
-          src={item.image} 
-          alt={item.name}
-          className="w-full h-32 object-cover"
+        src={item.image} 
+        alt={item.name}
+        className="w-full h-32 object-cover"
         />
-        <div className="absolute top-2 left-2 bg-yellow-400 text-black px-2 py-1 rounded text-xs font-medium">
+                <div className="absolute top-2 left-2 bg-yellow-400 text-black px-2 py-1 rounded text-xs font-medium">
           {item.type}
         </div>
       </div>
