@@ -3,7 +3,9 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import KeyFeatures from './components/KeyFeatures';
 import About from './components/About';
+import Testimoni from './components/Testimoni';
 import LastHome from './components/LastHome';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -12,7 +14,8 @@ function App() {
       <Hero />
       <KeyFeatures />
       <About />
-      <LastHome />
+      <Testimoni />
+      <Footer />
     </div>
   );
 }
