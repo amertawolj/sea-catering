@@ -31,7 +31,7 @@ Aplikasi ini menggunakan Supabase sebagai solusi backend yang menangani:
 - Manajemen data produk makanan
 Jika ingin membuat akun admin, langsung tambahkan email/password melalui dashboard Supabase atau gunakan fitur sign up biasa lalu beri role khusus di tabel users.
 
-## P.S
+## PS
 Beberapa fitur masih dalam tahap pengembangan dan belum semuanya berfungsi seperti yang direncanakan. This is my really first time trying web dev (maaf bapuk). Shout out to indian youtube and AI.
 Sebelum bikin website, saya prototyping dulu di figma, ini link figmanya
 https://www.figma.com/design/kiB3db8twvhqRcrFIzDbU6/Jgn-Dibuka?node-id=302-2&t=AJSDQ3kMa9z13zuo-1
