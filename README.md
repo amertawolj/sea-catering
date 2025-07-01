@@ -1,3 +1,44 @@
+# 🥗 SEA Catering Web App
+SEA Catering adalah platform pemesanan makanan sehat berbasis web yang menyediakan berbagai meal plan seperti Diet, Protein, dan Royal. Pengguna dapat melakukan langganan mingguan dan menyesuaikan jenis makanan serta hari pengantaran. Aplikasi ini dibuat menggunakan React.js, TailwindCSS, dan Supabase untuk autentikasi serta database.
+
+# Cara Menjalankan Aplikasi
+### 1. Clone Repository
+git clone https://github.com/USERNAME/sea-catering.git
+cd sea-catering
+
+### 2. Install Dependencies
+npm install
+
+### 3. Buat File .env di Root Project
+Isi dengan konfigurasi Supabase kamu:
+VITE_SUPABASE_URL=https://xxxx.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+URL dan anon key ada di file src/helper/supabaseClient.js
+
+### 4. Jalankan Project
+npm start
+
+## Buka di browser:
+Lokal: http://localhost:3000
+Deployment: https://sea-catering-amer.vercel.app
+
+## Teknologi yang Digunakan
+React.js – Frontend UI
+TailwindCSS – Styling responsif
+Supabase – Autentikasi dan database backend
+
+## Admin & Fitur Backend
+Aplikasi ini menggunakan Supabase sebagai solusi backend yang menangani:
+- Autentikasi pengguna (sign in / sign up)
+- Penyimpanan data langganan (subscription)
+- Manajemen data produk makanan
+Jika ingin membuat akun admin, langsung tambahkan email/password melalui dashboard Supabase atau gunakan fitur sign up biasa lalu beri role khusus di tabel users.
+
+NB:
+Beberapa fitur masih dalam tahap pengembangan dan belum semuanya berfungsi seperti yang direncanakan. This is my really first time trying web dev. Shout out to indian youtube and AI.
+Sebelum bikin website, saya prototyping dulu di figma, ini link figmanya
+https://www.figma.com/design/kiB3db8twvhqRcrFIzDbU6/Jgn-Dibuka?node-id=302-2&t=AJSDQ3kMa9z13zuo-1
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
