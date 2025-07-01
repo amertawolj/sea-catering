@@ -264,7 +264,7 @@ const SubscriptionForm = () => {
                 </div>
               </form>
             </div>
-              <div className="bg-white rounded-lg p-4">
+              <div className="bg-white rounded-lg p-3 h-[200px]">
                 <h3 className="text-xl font-bold text-gray-800 mb-2">Total:</h3>
                 <p className="text-2xl font-bold text-green-600 mb-4">
                   {formatCurrency(calculateTotal())}
