@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import KeyFeatures from './components/KeyFeatures';
 import About from './components/About';
+import LastHome from './components/LastHome';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Hero />
       <KeyFeatures />
       <About />
+      <LastHome />
     </div>
   );
 }
