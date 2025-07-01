@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import supabase from '../helper/supabaseClient';
 
 const SubscriptionForm = () => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -70,57 +74,63 @@ const SubscriptionForm = () => {
     }).format(amount);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
- 
-    if (!formData.name || !formData.phone || !formData.planSelection || 
-        formData.mealTypes.length === 0 || formData.deliveryDays.length === 0) {
-      alert('Please fill in all required fields');
-      return;
+    
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (
+    !formData.name ||
+    !formData.phone ||
+    !formData.planSelection ||
+    formData.mealTypes.length === 0 ||
+    formData.deliveryDays.length === 0
+  ) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const subscriptionData = {
+      username: formData.name,
+      phone_number: formData.phone,
+      plan_selection: formData.planSelection,
+      meal_type: formData.mealTypes.join(','), // format ke string
+      delivery_type: formData.deliveryDays.join(','), // format ke string
+      allergies: formData.allergies || null // jika kosong kirim null
+    };
+
+    const { data, error } = await supabase
+      .from('subscription')
+      .insert([subscriptionData]);
+      navigate('/pay', { state: { total: calculateTotal() } });
+
+    if (error) {
+      console.error('Supabase insert error:', error.message);
+      throw error;
     }
 
-    try {
-      setLoading(true);
-      
-      const subscriptionData = {
-        customer_name: formData.name,
-        phone_number: formData.phone,
-        plan_type: formData.planSelection,
-        meal_types: formData.mealTypes.join(','),
-        delivery_days: formData.deliveryDays.join(','),
-        allergies: formData.allergies || 'None',
-        total_price: calculateTotal(),
-        created_at: new Date().toISOString()
-      };
+    console.log('Subscription created:', data);
+    setSubmitted(true);
 
-      const { data, error } = await supabase
-        .from('subscription')
-        .insert([subscriptionData]);
+    setFormData({
+      name: '',
+      phone: '',
+      planSelection: '',
+      mealTypes: [],
+      deliveryDays: [],
+      allergies: ''
+    });
 
-      if (error) {
-        console.error('Supabase insert error:', error.message);
-        throw error;
-      }
+  } catch (error) {
+    console.error('Error creating subscription:', error);
+    alert('Failed to create subscription. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
-      console.log('Subscription created:', data);
-      setSubmitted(true);
-
-      setFormData({
-        name: '',
-        phone: '',
-        planSelection: '',
-        mealTypes: [],
-        deliveryDays: [],
-        allergies: ''
-      });
-
-    } catch (error) {
-      console.error('Error creating subscription:', error);
-      alert('Failed to create subscription. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (submitted) {
     return (

@@ -4,6 +4,10 @@ import Home from './pages/home';
 import Menu from './pages/menu';
 import Subscription from './pages/subscription';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+import Pay from './components/Pay';
+import Footer from './components/Footer';
+
 
 function App() {
   return (
@@ -13,6 +17,8 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/pay" element={<Pay />} />
+        <Route path="/footer" element={<Footer />} />
       </Routes>
     </Router>
   );

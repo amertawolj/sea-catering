@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
+
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const location = useLocation(); // ⬅️ untuk cek path aktif
+  const location = useLocation(); 
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+
+  const handleSwitchToSignUp = () => {
+    setShowSignIn(false);
+    setShowSignUp(true);
+  };
+
+  const handleSwitchToSignIn = () => {
+    setShowSignUp(false);
+    setShowSignIn(true);
+  };
 
   const handleNav = () => setNav(!nav);
 
@@ -12,8 +27,7 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'Menu', path: '/menu' },
     { name: 'Subscription', path: '/subscription' },
-    { name: 'Sign In/Sign Up', path: '/signin' },
-    { name: 'Contact Us', path: '/contact' },
+    { name: 'Contact Us', path: '/footer' },
   ];
 
   const linkStyle = (path) =>
@@ -32,14 +46,25 @@ const Navbar = () => {
           <h1 className='text-2xl font-bold' style={{ color: '#41521F' }}>SEA Catering</h1>
         </div>
 
-        {/* Desktop Nav */}
         <ul className='hidden md:flex items-center space-x-8'>
           {navItems.map((item) => (
             <li key={item.name}>
-              <Link to={item.path} className={linkStyle(item.path)}>{item.name}</Link>
+              <Link to={item.path} className={linkStyle(item.path)}>
+                {item.name}
+              </Link>
             </li>
           ))}
+          <li>
+            <button
+              onClick={() => setShowSignIn(true)}
+              className="text-[#8A8A8A] hover:text-[#41521F] font-medium transition"
+            >
+              Sign In / Sign Up
+            </button>
+          </li>
         </ul>
+
+        
 
         {/* Mobile Menu Toggle */}
         <div onClick={handleNav} className='block md:hidden cursor-pointer'>
@@ -71,9 +96,33 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+            <li className='list-none'>
+              <button
+                onClick={() => {
+                  setShowSignIn(true);
+                  setNav(false);
+                }}
+                className="w-full text-left p-4 border-b border-gray-100 text-[#8A8A8A] hover:bg-gray-50 transition-colors font-medium"
+              >
+                Sign In / Sign Up
+              </button>
+            </li>
           </ul>
         </div>
       </div>
+      {showSignIn && (
+        <SignIn
+          onClose={() => setShowSignIn(false)}
+          onSwitchToSignUp={handleSwitchToSignUp}
+        />
+      )}
+
+      {showSignUp && (
+        <SignUp
+          onClose={() => setShowSignUp(false)}
+          onSwitchToSignIn={handleSwitchToSignIn}
+        />
+      )}
     </nav>
   );
 };
