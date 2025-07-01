@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { supabase } from '../supabase';
 
-export default function SignIn() {
+export default function SignUp() {
   const [formData, setFormData] = useState({
+    fullName: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -14,24 +16,40 @@ export default function SignIn() {
       ...formData,
       [e.target.name]: e.target.value
     });
-
     if (error) setError(null);
   };
 
-  const handleSignIn = async () => {
+  const handleSignUp = async () => {
     setLoading(true);
     setError(null);
 
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords don't match");
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
+        options: {
+          data: {
+            full_name: formData.fullName,
+          }
+        }
       });
 
       if (error) {
         setError(error.message);
       } else {
-        console.log('Sign in successful:', data);
+        console.log('Sign up successful:', data);
       }
     } catch (err) {
       setError('An unexpected error occurred');
@@ -40,28 +58,10 @@ export default function SignIn() {
     }
   };
 
-  const handleForgotPassword = async () => {
-    if (!formData.email) {
-      setError('Please enter your email address first');
-      return;
-    }
-
-    try {
-      const { error } = await supabase.auth.resetPasswordForEmail(formData.email);
-      if (error) {
-        setError(error.message);
-      } else {
-        alert('Password reset email sent! Check your inbox.');
-      }
-    } catch (err) {
-      setError('Failed to send reset email');
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Sign In</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-8">Sign Up</h1>
         
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
@@ -70,6 +70,21 @@ export default function SignIn() {
         )}
         
         <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#41521F] focus:border-transparent"
+              required
+              disabled={loading}
+            />
+          </div>
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Email
@@ -94,41 +109,49 @@ export default function SignIn() {
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#41521F] focus:border-transparent"
+              placeholder="Min. 8 Characters"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#41521F] focus:border-transparent placeholder-gray-400"
+              minLength="8"
               required
               disabled={loading}
             />
           </div>
           
-          <div className="text-right">
-            <button
-              type="button"
-              onClick={handleForgotPassword}
-              className="text-sm text-[#41521F] hover:underline"
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              placeholder="Min. 8 Characters"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#41521F] focus:border-transparent placeholder-gray-400"
+              minLength="8"
+              required
               disabled={loading}
-            >
-              Forgot Password?
-            </button>
+            />
           </div>
           
           <button
-            onClick={handleSignIn}
+            onClick={handleSignUp}
             disabled={loading}
             className="w-full bg-[#41521F] text-white py-3 px-4 rounded-full font-medium hover:bg-[#2d3916] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Signing In...' : 'Sign In'}
+            {loading ? 'Signing Up...' : 'Sign Up'}
           </button>
         </div>
         
         <div className="mt-6 text-center">
-          <p className="text-gray-500 mb-4">Don't Have an Account Yet?</p>
+          <p className="text-gray-500 mb-4">Already Have an Account?</p>
           <button
             onClick={() => {
-              console.log('Navigate to Sign Up');
+              console.log('Navigate to Sign In');
             }}
             className="w-full bg-white text-[#41521F] py-3 px-4 rounded-full font-medium border-2 border-[#41521F] hover:bg-[#41521F] hover:text-white transition-colors duration-200"
           >
-            Sign Up
+            Sign In
           </button>
         </div>
       </div>
