@@ -6,6 +6,7 @@ import About from './components/About';
 import Testimoni from './components/Testimoni';
 import LastHome from './components/LastHome';
 import Footer from './components/Footer';
+import SignIn from './components/SignIn';
 
 function App() {
   return (

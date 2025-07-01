@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { supabase } from '../supabase';
+import supabase from '../helper/supabaseClient';
+import SignUp from '../components/SignUp';
 
-export default function SignIn() {
+
+export default function SignIn(props) {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -124,7 +126,9 @@ export default function SignIn() {
           <p className="text-gray-500 mb-4">Don't Have an Account Yet?</p>
           <button
             onClick={() => {
-              console.log('Navigate to Sign Up');
+              if (props.onSwitchToSignUp) {
+                props.onSwitchToSignUp();
+              }
             }}
             className="w-full bg-white text-[#41521F] py-3 px-4 rounded-full font-medium border-2 border-[#41521F] hover:bg-[#41521F] hover:text-white transition-colors duration-200"
           >
@@ -135,3 +139,4 @@ export default function SignIn() {
     </div>
   );
 }
+
